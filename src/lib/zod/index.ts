@@ -20,6 +20,12 @@ export const customErrorMap: zod.ZodErrorMap = (error, ctx) => {
 			return { message: `Campo obrigatório` };
 
 		case zod.ZodIssueCode.invalid_string:
+			if (error.validation === 'email') {
+				return {
+					message: `O endereço de e-mail informado não é válido`,
+				};
+			}
+
 			return { message: `O valor informado não é válido` };
 	}
 
