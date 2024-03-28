@@ -33,7 +33,7 @@ const SignInPage = () => {
 				</div>
 
 				<form
-					onSubmit={void handleSubmit(handleSignIn)}
+					onSubmit={handleSubmit(handleSignIn)}
 					className="flex flex-col gap-4"
 				>
 					<Input

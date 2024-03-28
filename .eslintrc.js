@@ -12,4 +12,14 @@ module.exports = {
 		tsconfigRootDir: __dirname,
 	},
 	root: true,
+	rules: {
+		'@typescript-eslint/no-misused-promises': [
+			2,
+			{
+				checksVoidReturn: {
+					attributes: false,
+				},
+			},
+		],
+	},
 };
