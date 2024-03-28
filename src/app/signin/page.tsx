@@ -1,23 +1,17 @@
 'use client';
 
+import { SignInProps, SignInSchema } from '@/src/app/signin/types';
 import { Button } from '@/src/components/theme/button';
 import { Input } from '@/src/components/theme/input';
-import zod from '@/src/utils/zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { FaArrowRight } from 'react-icons/fa6';
-
-const SignInSchema = zod.object({
-	email: zod.string().email(),
-	password: zod.string(),
-});
-
-type SignInProps = zod.infer<typeof SignInSchema>;
 
 const SignInPage = () => {
 	const {
 		formState: { errors },
 		handleSubmit,
+		register,
 	} = useForm<SignInProps>({ resolver: zodResolver(SignInSchema) });
 
 	const handleSignIn = (data: SignInProps) => {
@@ -39,18 +33,18 @@ const SignInPage = () => {
 					<Input
 						label="E-mail"
 						id="email"
-						name="email"
 						placeholder="jondoe@foo.com.br"
 						errors={errors.email}
+						{...register('email')}
 					/>
 
 					<Input
 						label="Senha"
 						id="password"
-						name="password"
 						placeholder="********"
 						type="password"
 						errors={errors.password}
+						{...register('password')}
 					/>
 
 					<Button
