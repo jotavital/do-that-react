@@ -1,8 +1,8 @@
 'use client';
 
-import { Button } from '@/components/theme/button';
-import { Input } from '@/components/theme/input';
-import { zod } from '@/utils/zod';
+import { Button } from '@/src/components/theme/button';
+import { Input } from '@/src/components/theme/input';
+import zod from '@/src/utils/zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { FaArrowRight } from 'react-icons/fa6';
@@ -33,7 +33,7 @@ const SignInPage = () => {
 				</div>
 
 				<form
-					onSubmit={handleSubmit(handleSignIn)}
+					onSubmit={void handleSubmit(handleSignIn)}
 					className="flex flex-col gap-4"
 				>
 					<Input

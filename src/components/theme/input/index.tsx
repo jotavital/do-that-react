@@ -1,4 +1,4 @@
-import { InputProps } from '@/components/theme/input/types';
+import { InputProps } from '@/src/components/theme/input/types';
 import React from 'react';
 
 export const Input: React.FC<InputProps> = ({
