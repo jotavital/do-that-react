@@ -27,13 +27,11 @@ const SignInPage = () => {
 						type="password"
 					/>
 
-					<div className="flex justify-end">
-						<Button
-							title="Fazer o Login"
-							icon={<FaArrowRight className="text-md" />}
-							type="submit"
-						/>
-					</div>
+					<Button
+						title="Fazer o Login"
+						icon={<FaArrowRight className="text-md" />}
+						type="submit"
+					/>
 				</form>
 			</div>
 		</div>
