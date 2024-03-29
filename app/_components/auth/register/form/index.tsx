@@ -1,35 +1,34 @@
 'use client';
 
+import { useRegisterForm } from '@/app/_components/auth/register/hooks/useRegisterForm';
 import { Button } from '@/app/_components/shared/button';
 import { Input } from '@/app/_components/shared/input';
-import { useSignInForm } from '@/app/_components/signin/hooks/useSignInForm';
 import React from 'react';
 import { FaArrowRight } from 'react-icons/fa6';
 
-export const SignInForm: React.FC = () => {
-	const { onSubmit, register, errors } = useSignInForm();
+export const RegisterForm: React.FC = () => {
+	const { onSubmit, register, errors } = useRegisterForm();
 
 	return (
 		<form onSubmit={onSubmit} className="flex flex-col gap-4">
 			<Input
-				label="E-mail"
+				label="Seu Nome"
+				id="name"
+				placeholder="Jon Doe"
+				errors={errors.name}
+				{...register('name')}
+			/>
+
+			<Input
+				label="Seu E-mail"
 				id="email"
 				placeholder="jondoe@foo.com.br"
 				errors={errors.email}
 				{...register('email')}
 			/>
 
-			<Input
-				label="Senha"
-				id="password"
-				placeholder="********"
-				type="password"
-				errors={errors.password}
-				{...register('password')}
-			/>
-
 			<Button
-				title="Fazer o Login"
+				title="Crie minha conta"
 				icon={<FaArrowRight className="text-md" />}
 				type="submit"
 			/>
