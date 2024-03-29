@@ -1,3 +1,4 @@
+import { AppProviders } from '@/app/(routes)/providers';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
@@ -18,7 +19,9 @@ export default function RootLayout({
 	return (
 		<html lang="pt-BR">
 			<body className={inter.className}>
-				<div className={styles.container}>{children}</div>
+				<div className={styles.container}>
+					<AppProviders>{children}</AppProviders>
+				</div>
 			</body>
 		</html>
 	);
