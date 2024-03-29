@@ -1,4 +1,4 @@
-import { ButtonProps } from '@/src/components/theme/button/types';
+import { ButtonProps } from '@/app/_components/shared/button/types';
 import React from 'react';
 
 export const Button: React.FC<ButtonProps> = ({

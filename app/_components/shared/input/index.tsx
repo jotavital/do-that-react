@@ -1,4 +1,4 @@
-import { InputProps } from '@/src/components/theme/input/types';
+import { InputProps } from '@/app/_components/shared/input/types';
 import React, { forwardRef } from 'react';
 import { MdErrorOutline } from 'react-icons/md';
 
