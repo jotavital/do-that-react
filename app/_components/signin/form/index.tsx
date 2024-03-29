@@ -1,29 +1,16 @@
 'use client';
 
-import { SignInProps, SignInSchema } from '@/app/_types/SignIn';
 import { Button } from '@/app/_components/shared/button';
 import { Input } from '@/app/_components/shared/input';
-import { zodResolver } from '@hookform/resolvers/zod';
+import { useSignInForm } from '@/app/_components/signin/hooks/useSignInForm';
 import React from 'react';
-import { useForm } from 'react-hook-form';
 import { FaArrowRight } from 'react-icons/fa6';
 
 export const SignInForm: React.FC = () => {
-	const {
-		formState: { errors },
-		handleSubmit,
-		register,
-	} = useForm<SignInProps>({ resolver: zodResolver(SignInSchema) });
-
-	const handleSignIn = (data: SignInProps) => {
-		console.log('email', data.email);
-	};
+	const { onSubmit, register, errors } = useSignInForm();
 
 	return (
-		<form
-			onSubmit={handleSubmit(handleSignIn)}
-			className="flex flex-col gap-4"
-		>
+		<form onSubmit={onSubmit} className="flex flex-col gap-4">
 			<Input
 				label="E-mail"
 				id="email"
