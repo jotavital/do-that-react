@@ -5,9 +5,11 @@ const config: Config = {
 	content: ['./app/**/*.{js,ts,jsx,tsx,mdx}'],
 	darkMode: 'selector',
 	theme: {
-		colors: {
-			...colors,
-			dark: '#334155',
+		extend: {
+			colors: {
+				...colors,
+				dark: '#334155',
+			},
 		},
 	},
 	plugins: [],
