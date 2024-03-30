@@ -22,7 +22,7 @@ export const Input: React.FC<InputProps> = forwardRef(
 			<div>
 				<label
 					htmlFor={id}
-					className="text-sm font-medium text-gray-900 dark:text-white"
+					className="text-sm font-medium text-dark dark:text-white"
 				>
 					{label}
 				</label>
