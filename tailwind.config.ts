@@ -9,6 +9,7 @@ const config: Config = {
 			colors: {
 				...colors,
 				dark: '#334155',
+				primary: '#023e8a',
 			},
 		},
 	},

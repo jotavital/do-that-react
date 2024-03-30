@@ -1,6 +1,6 @@
 import { JSX, ReactNode } from 'react';
 
-export type ButtonColors = 'green' | 'red' | 'none';
+export type ButtonColors = 'green' | 'red' | 'none' | 'primary';
 
 export type ButtonVariants = 'outline';
 

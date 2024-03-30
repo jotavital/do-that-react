@@ -7,11 +7,16 @@ export const Button: React.FC<ButtonProps> = ({
 	icon,
 	type,
 	leftIcon,
-	color = 'green',
+	color = 'primary',
 	variant,
+	className,
 	...rest
 }: ButtonProps) => {
-	const { buttonClassname } = useButtonClassnames({ color, variant });
+	const { buttonClassname } = useButtonClassnames({
+		color,
+		variant,
+		customClassName: className,
+	});
 
 	return (
 		<button

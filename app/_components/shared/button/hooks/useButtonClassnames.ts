@@ -7,9 +7,14 @@ import { twMerge } from 'tailwind-merge';
 interface Props {
 	color: ButtonColors;
 	variant?: ButtonVariants;
+	customClassName?: string;
 }
 
-export const useButtonClassnames = ({ color, variant }: Props) => {
+export const useButtonClassnames = ({
+	color,
+	variant,
+	customClassName,
+}: Props) => {
 	const isOutline = variant === 'outline';
 
 	const styledButtonClassnames = `rounded-lg py-2 px-3 text-md font-bold text-white shadow-md transition-all
@@ -20,6 +25,7 @@ export const useButtonClassnames = ({ color, variant }: Props) => {
 	const unstyledButtonClassnames = 'flex items-center justify-center gap-2';
 
 	const colorClassnames = {
+		primary: `bg-primary shadow-primary/20 hover:shadow-primary/40 border-primary ${isOutline && 'text-primary'}`,
 		green: `bg-green-500 shadow-green-500/20 hover:shadow-green-500/40 border-green-500 ${isOutline && 'text-green-500'}`,
 		red: `bg-red-500 shadow-red-500/20 hover:shadow-red-500/40 border-red-500 ${isOutline && 'text-red-500'}`,
 		none: '',
@@ -33,10 +39,11 @@ export const useButtonClassnames = ({ color, variant }: Props) => {
 		styledButtonClassnames,
 		colorClassnames[color],
 		variant && variantClassnames[variant],
+		customClassName,
 	);
 
 	if (color === 'none') {
-		buttonClassname = unstyledButtonClassnames;
+		buttonClassname = twMerge(unstyledButtonClassnames, customClassName);
 	}
 
 	return { buttonClassname };
