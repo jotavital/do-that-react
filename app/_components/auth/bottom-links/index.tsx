@@ -24,11 +24,8 @@ export const AuthFormsBottomLinks: React.FC = () => {
 	}
 
 	return (
-		<section className="mt-5 text-end">
-			<Link
-				href={metadata.href}
-				className="underline-offset-2 underline text-blue-500 font-semibold"
-			>
+		<section className="mt-6 text-end">
+			<Link href={metadata.href} className="text-gray-700 font-semibold">
 				{metadata.text}
 			</Link>
 		</section>
