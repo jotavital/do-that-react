@@ -3,53 +3,46 @@
 import { useSignInForm } from '@/app/_components/auth/signin/hooks/useSignInForm';
 import { Button } from '@/app/_components/shared/button';
 import { Input } from '@/app/_components/shared/input';
-import React, { useState } from 'react';
+import { FormStepTypes } from '@/app/_types/Form';
+import { preventSubmitOnEnter } from '@/app/_utils/form';
+import React from 'react';
 import { FaArrowRight } from 'react-icons/fa6';
 
-enum SignInFormSteps {
-	FIRST = 1, //ask for code
-	LAST = 2, // submit code
-}
-
 export const SignInForm: React.FC = () => {
-	const [step, setStep] = useState<number>(SignInFormSteps.FIRST);
-	const { onSubmit, register, errors } = useSignInForm();
-
-	const handleGoToPreviousStep = () => {
-		setStep((previousState) => previousState - 1);
-	};
-
-	const handleClickSubmitButton = () => {
-		if (step !== SignInFormSteps.LAST.valueOf()) {
-			return setStep((previousState) => previousState + 1);
-		}
-
-		return onSubmit();
-	};
+	const {
+		formMethods: {
+			register,
+			formState: { errors },
+		},
+		currentStep,
+		handleGoToNextStep,
+		handleGoToPreviousStep,
+	} = useSignInForm();
 
 	return (
-		<form className="flex flex-col gap-6">
-			{step === SignInFormSteps.FIRST.valueOf() ? (
+		<form className="flex flex-col gap-6" onKeyDown={preventSubmitOnEnter}>
+			{currentStep === FormStepTypes.FIRST.valueOf() ? (
 				<Input
 					label="E-mail"
 					id="email"
 					placeholder="jondoe@foo.com.br"
 					errors={errors.email}
 					{...register('email')}
+					key={'email'}
 				/>
-			) : step === SignInFormSteps.LAST.valueOf() ? (
+			) : currentStep === FormStepTypes.LAST.valueOf() ? (
 				<Input
 					label="Código de Acesso"
-					id="code"
+					id="access_code"
 					placeholder="123456"
-					errors={errors.code}
-					{...register('code')}
-					type="code"
+					errors={errors.access_code}
+					{...register('access_code')}
+					key={'access_code'}
 				/>
 			) : null}
 
 			<div className="flex gap-2 ">
-				{step !== SignInFormSteps.FIRST.valueOf() && (
+				{currentStep !== FormStepTypes.FIRST.valueOf() && (
 					<Button
 						title="Voltar"
 						type="button"
@@ -62,7 +55,7 @@ export const SignInForm: React.FC = () => {
 					title="Fazer o Login"
 					icon={<FaArrowRight className="text-md" />}
 					type="button"
-					onClick={() => handleClickSubmitButton()}
+					onClick={() => handleGoToNextStep()}
 				/>
 			</div>
 		</form>

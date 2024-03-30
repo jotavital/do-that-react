@@ -3,7 +3,6 @@ import * as zod from 'zod';
 export const customErrorMap: zod.ZodErrorMap = (error, ctx) => {
 	if (error.message) return { message: error.message };
 
-	console.log(error);
 	switch (error.code) {
 		case zod.ZodIssueCode.too_small:
 			if (error.minimum === 1) {

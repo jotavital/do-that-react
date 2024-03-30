@@ -1,13 +1,25 @@
+import { FormStep, FormStepTypes } from '@/app/_types/Form';
 import { SignInProps, SignInSchema } from '@/app/_types/SignIn';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
+const formSteps: FormStep[] = [
+	{
+		fields: ['email'],
+	},
+	{
+		fields: ['access_code'],
+	},
+];
+
 export const useSignInForm = () => {
-	const {
-		formState: { errors },
-		handleSubmit,
-		register,
-	} = useForm<SignInProps>({ resolver: zodResolver(SignInSchema) });
+	const [currentStep, setCurrentStep] = useState<number>(0);
+
+	const formMethods = useForm<SignInProps>({
+		resolver: zodResolver(SignInSchema),
+	});
+	const { handleSubmit, trigger } = formMethods;
 
 	const handleSignIn = (data: SignInProps) => {
 		console.log('email', data.email);
@@ -15,5 +27,31 @@ export const useSignInForm = () => {
 
 	const onSubmit = handleSubmit(handleSignIn);
 
-	return { errors, onSubmit, register };
+	const handleGoToPreviousStep = () => {
+		setCurrentStep((previousState) => previousState - 1);
+	};
+
+	const handleGoToNextStep = async () => {
+		if (currentStep !== FormStepTypes.LAST.valueOf()) {
+			const isValid = await trigger(formSteps[currentStep].fields, {
+				shouldFocus: true,
+			});
+
+			if (isValid) {
+				return setCurrentStep((previousState) => previousState + 1);
+			}
+
+			return;
+		}
+
+		return onSubmit();
+	};
+
+	return {
+		onSubmit,
+		formMethods,
+		handleGoToPreviousStep,
+		handleGoToNextStep,
+		currentStep,
+	};
 };

@@ -19,7 +19,7 @@ export const Input: React.FC<InputProps> = forwardRef(
 		const hasErrors = errors !== undefined;
 
 		return (
-			<div>
+			<div key={id}>
 				<label
 					htmlFor={id}
 					className="text-sm font-medium text-dark dark:text-white"
