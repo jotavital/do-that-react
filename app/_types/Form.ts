@@ -4,7 +4,7 @@ export interface FormStep {
 	fields: (keyof SignInProps)[];
 }
 
-export enum FormStepTypes {
-	FIRST = 0,
-	LAST = 1,
+export enum SignInFormSteps {
+	EMAIL = 0,
+	ACCESS_CODE = 1,
 }

@@ -1,9 +1,10 @@
 'use client';
 
+import { SignInFormHeader } from '@/app/_components/auth/signin/form/header';
 import { useSignInForm } from '@/app/_components/auth/signin/hooks/useSignInForm';
 import { Button } from '@/app/_components/shared/button';
 import { Input } from '@/app/_components/shared/input';
-import { FormStepTypes } from '@/app/_types/Form';
+import { SignInFormSteps } from '@/app/_types/Form';
 import { preventSubmitOnEnter } from '@/app/_utils/form';
 import React from 'react';
 import { FaArrowRight } from 'react-icons/fa6';
@@ -13,6 +14,7 @@ export const SignInForm: React.FC = () => {
 		formMethods: {
 			register,
 			formState: { errors },
+			getValues,
 		},
 		currentStep,
 		handleGoToNextStep,
@@ -20,8 +22,10 @@ export const SignInForm: React.FC = () => {
 	} = useSignInForm();
 
 	return (
-		<form className="flex flex-col gap-6" onKeyDown={preventSubmitOnEnter}>
-			{currentStep === FormStepTypes.FIRST.valueOf() ? (
+		<form className="flex flex-col gap-9" onKeyDown={preventSubmitOnEnter}>
+			<SignInFormHeader />
+
+			{currentStep === SignInFormSteps.EMAIL.valueOf() ? (
 				<Input
 					label="E-mail"
 					id="email"
@@ -30,19 +34,28 @@ export const SignInForm: React.FC = () => {
 					{...register('email')}
 					key={'email'}
 				/>
-			) : currentStep === FormStepTypes.LAST.valueOf() ? (
-				<Input
-					label="Código de Acesso"
-					id="access_code"
-					placeholder="123456"
-					errors={errors.access_code}
-					{...register('access_code')}
-					key={'access_code'}
-				/>
+			) : currentStep === SignInFormSteps.ACCESS_CODE.valueOf() ? (
+				<div className="flex flex-col gap-3">
+					<Input
+						label="Código de Acesso"
+						id="access_code"
+						placeholder="123456"
+						errors={errors.access_code}
+						{...register('access_code')}
+						key={'access_code'}
+						maxLength={6}
+					/>
+					<p className="text-sm">
+						Digite o código que enviamos para{' '}
+						<span className="text-primary">
+							{getValues('email') ?? 'okokoko@g.com'}
+						</span>
+					</p>
+				</div>
 			) : null}
 
 			<div className="flex gap-2 ">
-				{currentStep !== FormStepTypes.FIRST.valueOf() && (
+				{currentStep !== SignInFormSteps.EMAIL.valueOf() && (
 					<Button
 						title="Voltar"
 						type="button"

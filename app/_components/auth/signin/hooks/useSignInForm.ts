@@ -1,4 +1,4 @@
-import { FormStep, FormStepTypes } from '@/app/_types/Form';
+import { FormStep, SignInFormSteps } from '@/app/_types/Form';
 import { SignInProps, SignInSchema } from '@/app/_types/SignIn';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useState } from 'react';
@@ -32,7 +32,7 @@ export const useSignInForm = () => {
 	};
 
 	const handleGoToNextStep = async () => {
-		if (currentStep !== FormStepTypes.LAST.valueOf()) {
+		if (currentStep !== SignInFormSteps.ACCESS_CODE.valueOf()) {
 			const isValid = await trigger(formSteps[currentStep].fields, {
 				shouldFocus: true,
 			});
