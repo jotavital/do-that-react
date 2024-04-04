@@ -16,17 +16,20 @@ const formSteps: FormStep[] = [
 ];
 
 export const useSignInForm = () => {
+    const formMethods = useForm<SignInProps>({
+        resolver: zodResolver(SignInSchema),
+    });
+
+    const { handleSubmit, trigger, getValues } = formMethods;
+
     const [currentStep, setCurrentStep] = useState<number>(0);
     const [isSendingAuthenticationCode, setIsSendingAuthenticationCode] =
         useState<boolean>(false);
 
-    const formMethods = useForm<SignInProps>({
-        resolver: zodResolver(SignInSchema),
-    });
-    const { handleSubmit, trigger, getValues } = formMethods;
-
-    const handleSignIn = (data: SignInProps) => {
-        console.log('email', data.email);
+    const handleSignIn = async (data: SignInProps) => {
+        await api.post(`login/${data.authentication_code}`).then((r) => {
+            console.log(r);
+        });
     };
 
     const onSubmit = handleSubmit(handleSignIn);
@@ -65,7 +68,9 @@ export const useSignInForm = () => {
 
             if (currentStep === SignInFormSteps.EMAIL.valueOf()) {
                 setIsSendingAuthenticationCode(true);
+
                 const codeSent = await handleSendAuthenticationCode();
+
                 setIsSendingAuthenticationCode(false);
 
                 if (!codeSent) {
