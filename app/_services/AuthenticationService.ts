@@ -36,6 +36,11 @@ export class AuthenticationService {
             accessToken,
         );
 
+        localStorage.setItem(
+            process.env.NEXT_PUBLIC_USER_KEY ?? 'dothat@user',
+            JSON.stringify(response.user),
+        );
+
         api.defaults.headers['Authorization'] = `Bearer ${accessToken}`;
 
         return response;
