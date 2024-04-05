@@ -311,6 +311,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/cookie@npm:^0.6.0":
+  version: 0.6.0
+  resolution: "@types/cookie@npm:0.6.0"
+  checksum: 10c0/5b326bd0188120fb32c0be086b141b1481fec9941b76ad537f9110e10d61ee2636beac145463319c71e4be67a17e85b81ca9e13ceb6e3bb63b93d16824d6c149
+  languageName: node
+  linkType: hard
+
 "@types/json-schema@npm:^7.0.12":
   version: 7.0.15
   resolution: "@types/json-schema@npm:7.0.15"
@@ -322,6 +329,13 @@ __metadata:
   version: 0.0.29
   resolution: "@types/json5@npm:0.0.29"
   checksum: 10c0/6bf5337bc447b706bb5b4431d37686aa2ea6d07cfd6f79cc31de80170d6ff9b1c7384a9c0ccbc45b3f512bae9e9f75c2e12109806a15331dc94e8a8db6dbb4ac
+  languageName: node
+  linkType: hard
+
+"@types/node@npm:^16.10.2":
+  version: 16.18.94
+  resolution: "@types/node@npm:16.18.94"
+  checksum: 10c0/ef5fcf289cb9f3ca4cd1f4e2fd29e13b85c2708ab93c1b8050dc0381ecd9fe45d0bc4c700f797f69f3d0da63dbbb9020684a309a8844d249c84b24c6fee0b81f
   languageName: node
   linkType: hard
 
@@ -1141,6 +1155,24 @@ __metadata:
   languageName: node
   linkType: hard
 
+"cookie@npm:^0.6.0":
+  version: 0.6.0
+  resolution: "cookie@npm:0.6.0"
+  checksum: 10c0/f2318b31af7a31b4ddb4a678d024514df5e705f9be5909a192d7f116cfb6d45cbacf96a473fa733faa95050e7cff26e7832bb3ef94751592f1387b71c8956686
+  languageName: node
+  linkType: hard
+
+"cookies-next@npm:^4.1.1":
+  version: 4.1.1
+  resolution: "cookies-next@npm:4.1.1"
+  dependencies:
+    "@types/cookie": "npm:^0.6.0"
+    "@types/node": "npm:^16.10.2"
+    cookie: "npm:^0.6.0"
+  checksum: 10c0/6848fdbe2f29ee94194d323a0c7e8d71dddd0628bf2d26da2382854e43f05cae47acea8795cc12f3fbe7e4e679d30c362c6276e3ea0dcf2bf906ebc6f68bbb3b
+  languageName: node
+  linkType: hard
+
 "cross-spawn@npm:^7.0.0, cross-spawn@npm:^7.0.2, cross-spawn@npm:^7.0.3":
   version: 7.0.3
   resolution: "cross-spawn@npm:7.0.3"
@@ -1307,6 +1339,7 @@ __metadata:
     "@typescript-eslint/parser": "npm:^7.4.0"
     autoprefixer: "npm:^10.0.1"
     axios: "npm:^1.6.8"
+    cookies-next: "npm:^4.1.1"
     eslint: "npm:^8.57.0"
     eslint-config-next: "npm:14.1.4"
     eslint-config-prettier: "npm:^9.1.0"

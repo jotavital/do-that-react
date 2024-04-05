@@ -1,10 +1,12 @@
-import { api } from '@/app/_lib/axios';
-import { SendAuthenticationCodeResponse } from '@/app/_types/Authentication';
+import { useAuthContext } from '@/app/_contexts/AuthContext';
+import { AuthenticationService } from '@/app/_services/AuthenticationService';
+import { SignInProps, SignInSchema } from '@/app/_types/Authentication';
 import { FormStep, SignInFormSteps } from '@/app/_types/Form';
-import { SignInProps, SignInSchema } from '@/app/_types/SignIn';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { toast } from 'react-toastify';
 
 const formSteps: FormStep[] = [
     {
@@ -16,6 +18,8 @@ const formSteps: FormStep[] = [
 ];
 
 export const useSignInForm = () => {
+    const router = useRouter();
+    const { setUser } = useAuthContext();
     const formMethods = useForm<SignInProps>({
         resolver: zodResolver(SignInSchema),
     });
@@ -27,32 +31,20 @@ export const useSignInForm = () => {
         useState<boolean>(false);
 
     const handleSignIn = async (data: SignInProps) => {
-        await api.post(`login/${data.authentication_code}`).then((r) => {
-            console.log(r);
-        });
+        try {
+            const signInResponse = await AuthenticationService.signIn(data);
+
+            setUser(signInResponse.user);
+            toast.success('Login autorizado.');
+
+            router.push('dashboard');
+        } catch (error) {
+            toast.error('Erro ao fazer o login.');
+            console.error(error);
+        }
     };
 
     const onSubmit = handleSubmit(handleSignIn);
-
-    const handleSendAuthenticationCode = async () => {
-        try {
-            const email = getValues('email');
-
-            if (!email) {
-                return false;
-            }
-
-            const codeSent = await api
-                .get<SendAuthenticationCodeResponse>(
-                    `send-authentication-code?email=${email}`,
-                )
-                .then((r) => r.data.success);
-
-            return codeSent;
-        } catch (error) {
-            return false;
-        }
-    };
 
     const handleGoToPreviousStep = () => {
         setCurrentStep((previousState) => previousState - 1);
@@ -68,8 +60,10 @@ export const useSignInForm = () => {
 
             if (currentStep === SignInFormSteps.EMAIL.valueOf()) {
                 setIsSendingAuthenticationCode(true);
+                const email = getValues('email');
 
-                const codeSent = await handleSendAuthenticationCode();
+                const codeSent =
+                    await AuthenticationService.sendAuthenticationCode(email);
 
                 setIsSendingAuthenticationCode(false);
 

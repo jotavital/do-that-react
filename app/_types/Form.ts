@@ -1,4 +1,4 @@
-import { SignInProps } from '@/app/_types/SignIn';
+import { SignInProps } from '@/app/_types/Authentication';
 
 export interface FormStep {
     fields: (keyof SignInProps)[];
