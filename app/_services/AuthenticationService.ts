@@ -6,9 +6,21 @@ import {
     SignInProps,
     SignInResponse,
 } from '@/app/_types/Authentication';
-import { setCookie } from 'cookies-next';
+import { deleteCookie, setCookie } from 'cookies-next';
 
 export class AuthenticationService {
+    static signOut = () => {
+        delete api.defaults.headers['Authorization'];
+
+        deleteCookie(
+            process.env.NEXT_PUBLIC_ACCESS_TOKEN ?? 'dothat@accessToken',
+        );
+
+        if (typeof window !== 'undefined') {
+            window.location.href = 'signin';
+        }
+    };
+
     static signIn = async (data: SignInProps) => {
         const { data: response } = await api
             .post<SignInResponse>(`login`, {
