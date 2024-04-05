@@ -25,7 +25,7 @@ export default function RootLayout({
     }, []);
 
     return (
-        <section>
+        <section className="h-screen">
             <section className="bg-slate-800 h-[60px] flex items-center justify-end px-3">
                 <Avatar name={user?.name} size="40" className="rounded-full" />
             </section>

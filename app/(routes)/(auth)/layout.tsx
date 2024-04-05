@@ -3,17 +3,20 @@
 import { AuthFormsBottomLinks } from '@/app/_components/auth/bottom-links';
 import { hasCookie } from 'cookies-next';
 import { useRouter } from 'next/navigation';
-import { ReactNode } from 'react';
+import { ReactNode, useEffect } from 'react';
 
 const AuthLayout = ({ children }: { children: ReactNode }) => {
     const router = useRouter();
-    const hasAccessTokenCookie = hasCookie(
-        process.env.NEXT_PUBLIC_ACCESS_TOKEN ?? 'dothat@accessToken',
-    );
 
-    if (hasAccessTokenCookie) {
-        router.push('dashboard');
-    }
+    useEffect(() => {
+        const hasAccessTokenCookie = hasCookie(
+            process.env.NEXT_PUBLIC_ACCESS_TOKEN ?? 'dothat@accessToken',
+        );
+
+        if (hasAccessTokenCookie) {
+            router.push('dashboard');
+        }
+    }, []);
 
     return (
         <section className="flex justify-center min-h-[100vh] items-center">
