@@ -1,11 +1,11 @@
-import { BoardColumnColors } from '@/app/_components/boards/column/types';
+import { ListColors } from '@/app/_components/boards/lists/types';
 
 interface Props {
     title?: string;
-    color?: BoardColumnColors;
+    color?: ListColors;
 }
 
-export const ColumnHeader: React.FC<Props> = ({
+export const ListHeader: React.FC<Props> = ({
     title,
     color = 'blue',
 }: Props) => {

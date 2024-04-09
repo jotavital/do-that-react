@@ -1,4 +1,4 @@
-import { TaskItem } from '@/app/_components/boards/column/tasks/taskItem';
+import { TaskItem } from '@/app/_components/boards/lists/tasks/task-item';
 import React from 'react';
 
 export const TaskList: React.FC = () => {
