@@ -1,9 +1,9 @@
 {
-	"trailingComma": "all",
-	"tabWidth": 4,
-	"semi": true,
-	"singleQuote": true,
-	"useTabs": false,
-	"printWidth": 80,
-	"plugins": ["prettier-plugin-classnames"]
+    "trailingComma": "all",
+    "tabWidth": 4,
+    "semi": true,
+    "singleQuote": true,
+    "useTabs": false,
+    "printWidth": 80,
+    "plugins": ["prettier-plugin-classnames"]
 }

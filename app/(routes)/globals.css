@@ -17,9 +17,3 @@ p,
 small {
 	color: '#334155';
 }
-
-@layer utilities {
-	.text-balance {
-		text-wrap: balance;
-	}
-}
