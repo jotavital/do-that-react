@@ -1,11 +1,15 @@
 'use client';
 
-import { useCallback } from 'react';
+import { createContext, ReactNode, useCallback, useContext } from 'react';
+import { TaskContextValue } from '@/app/_contexts/task/types';
+import { useTaskMutations } from '@/app/_hooks/mutations/tasks/useTaskMutations';
 import { DropResult } from 'react-beautiful-dnd';
-import { useTaskContext } from '@/app/_contexts/task-context';
 
-export const useTaskDragAndDrop = () => {
-    const { handleMoveTaskMutation } = useTaskContext();
+const TaskContext = createContext<TaskContextValue>({} as TaskContextValue);
+
+export const TaskProvider = ({ children }: { children: ReactNode }) => {
+    const { moveTaskMutation } = useTaskMutations();
+    const isMovingTask = moveTaskMutation.isPending;
 
     const handleDragEnd = useCallback(
         async (result: DropResult) => {
@@ -38,15 +42,23 @@ export const useTaskDragAndDrop = () => {
                 return;
             }
 
-            await handleMoveTaskMutation({
+            await moveTaskMutation.mutateAsync({
                 taskId,
                 destinationIndex,
                 destinationStatusId,
                 sourceStatusId,
             });
         },
-        [handleMoveTaskMutation],
+        [moveTaskMutation],
     );
 
-    return { handleDragEnd };
+    return (
+        <TaskContext.Provider value={{ handleDragEnd, isMovingTask }}>
+            {children}
+        </TaskContext.Provider>
+    );
+};
+
+export const useTaskContext = () => {
+    return useContext(TaskContext);
 };

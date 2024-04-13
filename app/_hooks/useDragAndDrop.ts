@@ -2,15 +2,15 @@
 
 import { useCallback } from 'react';
 import { DropResult } from 'react-beautiful-dnd';
-import { useTaskDragAndDrop } from '@/app/_hooks/useTaskDragAndDrop';
+import { useTaskContext } from '../_contexts/task';
 
 export const useDragAndDrop = () => {
-    const { handleDragEnd } = useTaskDragAndDrop();
+    const { handleDragEnd } = useTaskContext();
 
     const onDragEnd = useCallback(
         (result: DropResult) => {
             if (result.type === 'TASK') {
-                handleDragEnd(result);
+                void handleDragEnd(result);
             }
         },
         [handleDragEnd],
