@@ -52,13 +52,11 @@ export class AuthenticationService {
                 return false;
             }
 
-            const codeSent = await api
+            return await api
                 .get<SendAuthenticationCodeResponse>(
                     `send-authentication-code?email=${email}`,
                 )
                 .then((r) => r.data.success);
-
-            return codeSent;
         } catch (error) {
             console.error(error);
             return false;

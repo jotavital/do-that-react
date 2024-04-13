@@ -1,14 +1,25 @@
 import React from 'react';
 import { Task } from '@/app/_models/Task';
+import { Draggable } from 'react-beautiful-dnd';
 
 interface Props {
     task: Task;
+    index: number;
 }
 
-export const TaskItem: React.FC<Props> = ({ task }: Props) => {
+export const TaskItem: React.FC<Props> = ({ task, index }: Props) => {
     return (
-        <div className="bg-white min-h-20 rounded-md shadow-sm p-2">
-            <p>{task.title}</p>
-        </div>
+        <Draggable draggableId={`draggable-task-${task.id}`} index={index}>
+            {(provided) => (
+                <div
+                    ref={provided.innerRef}
+                    {...provided.draggableProps}
+                    {...provided.dragHandleProps}
+                    className="bg-white min-h-20 rounded-md shadow-sm p-2"
+                >
+                    <p>{task.title}</p>
+                </div>
+            )}
+        </Draggable>
     );
 };

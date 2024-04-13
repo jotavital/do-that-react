@@ -13,12 +13,16 @@ export const Tasks: React.FC<Props> = ({ statusId }: Props) => {
     const { data, isFetching } = fetchTasksByStatusQuery;
 
     return (
-        <div className="max-h-[90%] p-3 flex flex-col gap-2 overflow-y-auto">
+        <div className="h-[90%] p-3 flex flex-col gap-2 overflow-y-auto">
             {isFetching ? (
                 <Loading />
             ) : (
-                data?.data?.map((task: Task) => (
-                    <TaskItem key={task.id} task={task} />
+                data?.data?.map((task: Task, index: number) => (
+                    <TaskItem
+                        key={`draggable-task-${task.id}`}
+                        task={task}
+                        index={index}
+                    />
                 ))
             )}
         </div>
