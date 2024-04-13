@@ -1,6 +1,6 @@
 'use client';
 
-import { useStatusQueries } from '@/app/_queries/status/useStatusQueries';
+import { useStatusQueries } from '@/app/_hooks/queries/status/useStatusQueries';
 import { Loading } from '@/app/_components/shared/loading';
 import { Status } from '@/app/_components/boards/statuses/status';
 

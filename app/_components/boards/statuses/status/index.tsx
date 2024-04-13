@@ -6,10 +6,11 @@ import { Droppable } from 'react-beautiful-dnd';
 export const Status: React.FC<StatusProps> = ({ status }: StatusProps) => {
     return (
         <Droppable droppableId={`droppable-status-${status.id}`} type="TASK">
-            {(provided) => (
+            {(provided, snapshot) => (
                 <div
                     ref={provided.innerRef}
-                    className="bg-slate-200 min-w-72 h-full border-slate-300 border-[1px] shadow-md rounded-md"
+                    className={`bg-slate-200 min-w-72 h-full border-slate-300 border-[1px] shadow-md rounded-md
+                    ${snapshot?.isDraggingOver && 'bg-blue-100'}`}
                     {...provided.droppableProps}
                 >
                     <StatusHeader status={status} />

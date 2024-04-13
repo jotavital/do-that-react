@@ -6,7 +6,7 @@ interface Props {
     statusId?: string | number;
 }
 
-export const useTasksQueries = ({ statusId }: Props) => {
+export const useTaskQueries = ({ statusId }: Props) => {
     const fetchTasksByStatusQuery = useQuery({
         queryKey: ['tasks-by-status', { statusId: statusId }],
         queryFn: async () =>

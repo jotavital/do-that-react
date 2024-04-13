@@ -2,14 +2,13 @@
 
 import { useCallback } from 'react';
 import { DropResult } from 'react-beautiful-dnd';
-import { api } from '@/app/_lib/axios';
-import { useQueryClient } from '@tanstack/react-query';
+import { useTaskContext } from '@/app/_contexts/task-context';
 
 export const useTaskDragAndDrop = () => {
-    const queryClient = useQueryClient();
+    const { handleMoveTaskMutation } = useTaskContext();
 
     const handleDragEnd = useCallback(
-        (result: DropResult) => {
+        async (result: DropResult) => {
             const {
                 draggableId,
                 destination,
@@ -39,23 +38,14 @@ export const useTaskDragAndDrop = () => {
                 return;
             }
 
-            void api
-                .put(`tasks/${taskId}/move`, {
-                    order: destinationIndex,
-                    statusId: destinationStatusId,
-                })
-                .then(() => {
-                    void queryClient.invalidateQueries({
-                        predicate: (query) =>
-                            query.queryKey[0] === 'tasks-by-status' &&
-                            [sourceStatusId, destinationStatusId].includes(
-                                // @ts-expect-error foo
-                                String(query.queryKey[1]?.statusId),
-                            ),
-                    });
-                });
+            await handleMoveTaskMutation({
+                taskId,
+                destinationIndex,
+                destinationStatusId,
+                sourceStatusId,
+            });
         },
-        [queryClient],
+        [handleMoveTaskMutation],
     );
 
     return { handleDragEnd };
