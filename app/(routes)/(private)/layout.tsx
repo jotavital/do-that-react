@@ -1,6 +1,6 @@
 'use client';
 
-import { useAuthContext } from '@/app/_contexts/AuthContext';
+import { useAuthContext } from '../../_contexts/auth-context';
 import { hasCookie } from 'cookies-next';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
