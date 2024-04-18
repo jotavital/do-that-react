@@ -8,7 +8,7 @@ export const Status: React.FC<StatusProps> = ({ status }: StatusProps) => {
     const { isMovingTask } = useTaskContext();
 
     return (
-        <Droppable droppableId={`droppable-status-${status.id}`} type="TASK">
+        <Droppable droppableId={`droppable-status-${status._id}`} type="TASK">
             {(provided, snapshot) => (
                 <div
                     ref={provided.innerRef}
@@ -20,7 +20,7 @@ export const Status: React.FC<StatusProps> = ({ status }: StatusProps) => {
                 >
                     <StatusHeader status={status} />
 
-                    <Tasks statusId={status.id} />
+                    <Tasks tasks={status.tasks} />
 
                     {provided.placeholder}
                 </div>

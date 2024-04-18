@@ -1,7 +1,6 @@
 export interface Task {
-    id: number;
+    _id: string;
     title: string;
-    status_id: number;
     created_at: string;
     updated_at: string | null;
     deleted_at: string | null;

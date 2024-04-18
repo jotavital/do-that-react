@@ -9,7 +9,7 @@ interface Props {
 
 export const TaskItem: React.FC<Props> = ({ task, index }: Props) => {
     return (
-        <Draggable draggableId={`draggable-task-${task.id}`} index={index}>
+        <Draggable draggableId={`draggable-task-${task._id}`} index={index}>
             {(provided) => (
                 <div
                     ref={provided.innerRef}

@@ -42,6 +42,8 @@ export const TaskProvider = ({ children }: { children: ReactNode }) => {
                 return;
             }
 
+            console.log(sourceStatusId);
+
             await moveTaskMutation.mutateAsync({
                 taskId,
                 destinationIndex,

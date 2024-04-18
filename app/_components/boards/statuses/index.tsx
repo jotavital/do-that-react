@@ -15,6 +15,6 @@ export const Statuses: React.FC = () => {
     if (data?.data === undefined || data.data.length <= 0) return;
 
     return data.data.map((status) => {
-        return <Status key={status.id} status={status} />;
+        return <Status key={status._id} status={status} />;
     });
 };
