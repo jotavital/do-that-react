@@ -15,6 +15,7 @@ import { useStatusQueries } from '@/app/_hooks/queries/status/useStatusQueries';
 import { Status } from '@/app/_models/Status';
 import { arrayMoveImmutable } from 'array-move';
 import { hasNotMoved } from '@/app/_utils/drag-and-drop';
+import { Task } from '@/app/_models/Task';
 
 const TaskContext = createContext<TaskContextValue>({} as TaskContextValue);
 
@@ -72,21 +73,11 @@ export const TaskProvider = ({ children }: { children: ReactNode }) => {
                     destinationIndex,
                 );
 
-                await rearrangeTasksMutation
-                    .mutateAsync({
-                        statusId: sourceStatusId,
-                        tasks: reorderedTasks,
-                    })
-                    .then(() => {
-                        setStatuses((previousStatuses) => {
-                            if (previousStatuses === undefined) return [];
-
-                            previousStatuses[sourceStatusIndex].tasks =
-                                reorderedTasks;
-
-                            return previousStatuses;
-                        });
-                    });
+                await moveTaskInSameStatus(
+                    sourceStatusId,
+                    reorderedTasks,
+                    sourceStatusIndex,
+                );
             } else {
                 const taskToMove = sourceTasks[sourceIndex];
                 const destinationStatusIndex = statuses.findIndex(
@@ -100,41 +91,70 @@ export const TaskProvider = ({ children }: { children: ReactNode }) => {
                 newSourceTasks.splice(sourceIndex, 1);
                 newDestinationTasks.splice(destinationIndex, 0, taskToMove);
 
-                await rearrangeTasksMutation
-                    .mutateAsync({
-                        statusId: sourceStatusId,
-                        tasks: newSourceTasks,
-                    })
-                    .then(() => {
-                        setStatuses((previousStatuses) => {
-                            if (previousStatuses === undefined) return [];
-
-                            previousStatuses[sourceStatusIndex].tasks =
-                                newSourceTasks;
-
-                            return previousStatuses;
-                        });
-                    });
-
-                await rearrangeTasksMutation
-                    .mutateAsync({
-                        statusId: destinationStatusId,
-                        tasks: newDestinationTasks,
-                    })
-                    .then(() => {
-                        setStatuses((previousStatuses) => {
-                            if (previousStatuses === undefined) return [];
-
-                            previousStatuses[destinationStatusIndex].tasks =
-                                newDestinationTasks;
-
-                            return previousStatuses;
-                        });
-                    });
+                await moveTaskToAnotherStatus(
+                    sourceStatusId,
+                    newSourceTasks,
+                    destinationStatusId,
+                    newDestinationTasks,
+                    sourceStatusIndex,
+                    destinationStatusIndex,
+                );
             }
         },
         [rearrangeTasksMutation, statuses],
     );
+
+    const moveTaskInSameStatus = async (
+        sourceStatusId: string,
+        newTasks: Task[],
+        sourceStatusIndex: number,
+    ) => {
+        await rearrangeTasksMutation
+            .mutateAsync({
+                statusId: sourceStatusId,
+                tasks: newTasks,
+            })
+            .then(() => {
+                setStatuses((previousStatuses) => {
+                    if (previousStatuses === undefined) return [];
+
+                    previousStatuses[sourceStatusIndex].tasks = newTasks;
+
+                    return previousStatuses;
+                });
+            });
+    };
+
+    const moveTaskToAnotherStatus = async (
+        sourceStatusId: string,
+        newSourceTasks: Task[],
+        destinationStatusId: string,
+        newDestinationTasks: Task[],
+        sourceStatusIndex: number,
+        destinationStatusIndex: number,
+    ) => {
+        await Promise.allSettled([
+            rearrangeTasksMutation.mutateAsync({
+                statusId: sourceStatusId,
+                tasks: newSourceTasks,
+            }),
+            rearrangeTasksMutation.mutateAsync({
+                statusId: destinationStatusId,
+                tasks: newDestinationTasks,
+            }),
+        ]).then(() => {
+            setStatuses((previousStatuses) => {
+                if (previousStatuses === undefined) return [];
+
+                previousStatuses[sourceStatusIndex].tasks = newSourceTasks;
+
+                previousStatuses[destinationStatusIndex].tasks =
+                    newDestinationTasks;
+
+                return previousStatuses;
+            });
+        });
+    };
 
     useEffect(() => {
         setStatuses(statusesResponse?.data);
