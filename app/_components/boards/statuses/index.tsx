@@ -1,20 +1,19 @@
 'use client';
 
-import { useStatusQueries } from '@/app/_hooks/queries/status/useStatusQueries';
 import { Loading } from '@/app/_components/shared/loading';
 import { Status } from '@/app/_components/boards/statuses/status';
+import { useTaskContext } from '@/app/_contexts/task';
 
 export const Statuses: React.FC = () => {
-    const { fetchAllStatusesQuery } = useStatusQueries();
-    const { data, isFetching } = fetchAllStatusesQuery;
+    const { isFetchingStatuses, statuses } = useTaskContext();
 
-    if (isFetching) {
+    if (isFetchingStatuses) {
         return <Loading />;
     }
 
-    if (data?.data === undefined || data.data.length <= 0) return;
+    if (statuses === undefined || statuses.length <= 0) return;
 
-    return data.data.map((status) => {
+    return statuses.map((status) => {
         return <Status key={status._id} status={status} />;
     });
 };

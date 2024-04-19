@@ -21,11 +21,11 @@ export const AppProviders = ({ children }: { children: ReactNode }) => {
     return (
         <>
             <QueryClientProvider client={queryClient}>
-                <TaskProvider>
-                    <AppDragDropContext>
-                        <AuthProvider>{children}</AuthProvider>
-                    </AppDragDropContext>
-                </TaskProvider>
+                <AuthProvider>
+                    <TaskProvider>
+                        <AppDragDropContext>{children}</AppDragDropContext>
+                    </TaskProvider>
+                </AuthProvider>
 
                 <ReactQueryDevtools initialIsOpen={false} />
             </QueryClientProvider>

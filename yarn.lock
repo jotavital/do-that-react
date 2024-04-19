@@ -809,6 +809,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"array-move@npm:^4.0.0":
+  version: 4.0.0
+  resolution: "array-move@npm:4.0.0"
+  checksum: 10c0/056eaf4ceeabe6b275d2d96e8628d839a3bf53844f13070de74f73a035ace8f9160800e4288e5fb36226593d39b239f9b63c654a6bb95e05f18aeb345c886acf
+  languageName: node
+  linkType: hard
+
 "array-union@npm:^2.1.0":
   version: 2.1.0
   resolution: "array-union@npm:2.1.0"
@@ -1447,6 +1454,7 @@ __metadata:
     "@types/react-dom": "npm:^18"
     "@typescript-eslint/eslint-plugin": "npm:^7.4.0"
     "@typescript-eslint/parser": "npm:^7.4.0"
+    array-move: "npm:^4.0.0"
     autoprefixer: "npm:^10.0.1"
     axios: "npm:^1.6.8"
     cookies-next: "npm:^4.1.1"
