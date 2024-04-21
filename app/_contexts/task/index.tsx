@@ -3,7 +3,6 @@
 import {
     createContext,
     ReactNode,
-    useCallback,
     useContext,
     useEffect,
     useState,
@@ -29,80 +28,74 @@ export const TaskProvider = ({ children }: { children: ReactNode }) => {
         statusesResponse?.data,
     );
 
-    const handleDragEnd = useCallback(
-        async (result: DropResult) => {
-            if (statuses === undefined) return;
+    const handleDragEnd = async (result: DropResult) => {
+        if (statuses === undefined) return;
 
-            const {
-                destination,
-                source: { index: sourceIndex, droppableId: sourceDroppableId },
-            } = result;
+        const {
+            destination,
+            source: { index: sourceIndex, droppableId: sourceDroppableId },
+        } = result;
 
-            if (!destination) return;
+        if (!destination) return;
 
-            const {
-                droppableId: destinationDroppableId,
-                index: destinationIndex,
-            } = destination;
+        const { droppableId: destinationDroppableId, index: destinationIndex } =
+            destination;
 
-            if (
-                hasNotMoved(
-                    sourceIndex,
-                    destinationIndex,
-                    sourceDroppableId,
-                    destinationDroppableId,
-                )
-            ) {
-                return;
-            }
+        if (
+            hasNotMoved(
+                sourceIndex,
+                destinationIndex,
+                sourceDroppableId,
+                destinationDroppableId,
+            )
+        ) {
+            return;
+        }
 
-            const sourceStatusId =
-                sourceDroppableId.split('droppable-status-')[1];
-            const destinationStatusId =
-                destinationDroppableId.split('droppable-status-')[1];
+        const sourceStatusId = sourceDroppableId.split('droppable-status-')[1];
+        const destinationStatusId =
+            destinationDroppableId.split('droppable-status-')[1];
 
-            const sourceStatusIndex = statuses.findIndex(
-                (status) => status._id === sourceStatusId,
+        const sourceStatusIndex = statuses.findIndex(
+            (status) => status._id === sourceStatusId,
+        );
+        const sourceTasks = statuses[sourceStatusIndex].tasks;
+
+        if (sourceDroppableId === destinationDroppableId) {
+            const reorderedTasks = arrayMoveImmutable(
+                sourceTasks,
+                sourceIndex,
+                destinationIndex,
             );
-            const sourceTasks = statuses[sourceStatusIndex].tasks;
 
-            if (sourceDroppableId === destinationDroppableId) {
-                const reorderedTasks = arrayMoveImmutable(
-                    sourceTasks,
-                    sourceIndex,
-                    destinationIndex,
-                );
+            await moveTaskInSameStatus(
+                sourceStatusId,
+                reorderedTasks,
+                sourceStatusIndex,
+            );
+        } else {
+            const taskToMove = sourceTasks[sourceIndex];
+            const destinationStatusIndex = statuses.findIndex(
+                (status) => status._id === destinationStatusId,
+            );
+            const newDestinationTasks = [
+                ...statuses[destinationStatusIndex].tasks,
+            ];
+            const newSourceTasks = [...sourceTasks];
 
-                await moveTaskInSameStatus(
-                    sourceStatusId,
-                    reorderedTasks,
-                    sourceStatusIndex,
-                );
-            } else {
-                const taskToMove = sourceTasks[sourceIndex];
-                const destinationStatusIndex = statuses.findIndex(
-                    (status) => status._id === destinationStatusId,
-                );
-                const newDestinationTasks = [
-                    ...statuses[destinationStatusIndex].tasks,
-                ];
-                const newSourceTasks = [...sourceTasks];
+            newSourceTasks.splice(sourceIndex, 1);
+            newDestinationTasks.splice(destinationIndex, 0, taskToMove);
 
-                newSourceTasks.splice(sourceIndex, 1);
-                newDestinationTasks.splice(destinationIndex, 0, taskToMove);
-
-                await moveTaskToAnotherStatus(
-                    sourceStatusId,
-                    newSourceTasks,
-                    destinationStatusId,
-                    newDestinationTasks,
-                    sourceStatusIndex,
-                    destinationStatusIndex,
-                );
-            }
-        },
-        [rearrangeTasksMutation, statuses],
-    );
+            await moveTaskToAnotherStatus(
+                sourceStatusId,
+                newSourceTasks,
+                destinationStatusId,
+                newDestinationTasks,
+                sourceStatusIndex,
+                destinationStatusIndex,
+            );
+        }
+    };
 
     const moveTaskInSameStatus = async (
         sourceStatusId: string,

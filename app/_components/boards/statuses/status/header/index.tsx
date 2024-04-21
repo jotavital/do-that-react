@@ -1,4 +1,6 @@
 import { StatusProps } from '@/app/_components/boards/statuses/status/types';
+import React from 'react';
+import { IoMdAdd } from 'react-icons/io';
 
 export const StatusHeader: React.FC<StatusProps> = ({
     status,
@@ -17,14 +19,17 @@ export const StatusHeader: React.FC<StatusProps> = ({
 
     return (
         <div
-            className={`min-h-12 p-3 border-l-4 rounded-bl-sm rounded-tl-md
-            ${headerClassnames[status.color]}`}
+            className={`min-h-12 p-3 border-l-4 rounded-bl-sm rounded-tl-md flex items-center
+            justify-between ${headerClassnames[status.color]}`}
         >
             <h1
                 className={`text-lg font-semibold ${titleClassnames[status.color]}`}
             >
                 {status.title}
             </h1>
+            <div className="hover:bg-slate-100 p-1 rounded-md cursor-pointer">
+                <IoMdAdd className="text-xl" />
+            </div>
         </div>
     );
 };
