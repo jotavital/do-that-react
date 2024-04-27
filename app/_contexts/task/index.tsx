@@ -1,6 +1,6 @@
 'use client';
 
-import {
+import React, {
     createContext,
     ReactNode,
     useContext,
@@ -15,6 +15,7 @@ import { Status } from '@/app/_models/Status';
 import { arrayMoveImmutable } from 'array-move';
 import { hasNotMoved } from '@/app/_utils/drag-and-drop';
 import { Task } from '@/app/_models/Task';
+import { TaskModalsProvider } from '@/app/_contexts/task/modals';
 
 const TaskContext = createContext<TaskContextValue>({} as TaskContextValue);
 
@@ -162,7 +163,7 @@ export const TaskProvider = ({ children }: { children: ReactNode }) => {
                 isMovingTask,
             }}
         >
-            {children}
+            <TaskModalsProvider>{children}</TaskModalsProvider>
         </TaskContext.Provider>
     );
 };

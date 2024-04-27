@@ -3,8 +3,8 @@
 @tailwind utilities;
 
 body {
-	margin: 0;
-	padding: 0;
+    margin: 0;
+    padding: 0;
 }
 
 h1,
@@ -15,5 +15,19 @@ h5,
 h6,
 p,
 small {
-	color: '#334155';
+    color: '#334155';
+}
+
+.ReactModal__Overlay {
+    opacity: 0;
+    transition: opacity 250ms ease-in-out;
+}
+
+.ReactModal__Overlay--after-open {
+    opacity: 1;
+    backdrop-filter: blur(2px);
+}
+
+.ReactModal__Overlay--before-close {
+    opacity: 0;
 }

@@ -1,6 +1,6 @@
 'use client';
 
-import { AuthContextValue } from '@/app/_contexts/auth-context/types';
+import { AuthContextValue } from '@/app/_contexts/auth/types';
 import { User } from '@/app/_models/User';
 import { AuthenticationService } from '@/app/_services/AuthenticationService';
 import { createContext, ReactNode, useContext, useState } from 'react';

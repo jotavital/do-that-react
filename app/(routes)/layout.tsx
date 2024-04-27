@@ -7,22 +7,22 @@ import styles from './styles.module.css';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-	title: 'Do That',
-	description: 'Simple TODO App',
+    title: 'Do That',
+    description: 'Simple TODO App',
 };
 
 export default function RootLayout({
-	children,
+    children,
 }: Readonly<{
-	children: React.ReactNode;
+    children: React.ReactNode;
 }>) {
-	return (
-		<html lang="pt-BR">
-			<body className={inter.className}>
-				<div className={styles.container}>
-					<AppProviders>{children}</AppProviders>
-				</div>
-			</body>
-		</html>
-	);
+    return (
+        <html lang="pt-BR">
+            <body className={inter.className} id="root">
+                <div className={styles.container}>
+                    <AppProviders>{children}</AppProviders>
+                </div>
+            </body>
+        </html>
+    );
 }
