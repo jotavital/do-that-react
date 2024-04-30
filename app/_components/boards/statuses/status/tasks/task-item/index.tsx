@@ -1,5 +1,5 @@
 import React from 'react';
-import { Task } from '@/app/_models/Task';
+import { Task } from '@/app/_types/Task';
 import { Draggable } from 'react-beautiful-dnd';
 
 interface Props {
@@ -17,7 +17,7 @@ export const TaskItem: React.FC<Props> = ({ task, index }: Props) => {
                     {...provided.dragHandleProps}
                     className="bg-white min-h-20 rounded-md shadow-sm p-2"
                 >
-                    <p>{task.title}</p>
+                    <p>{task.name}</p>
                 </div>
             )}
         </Draggable>

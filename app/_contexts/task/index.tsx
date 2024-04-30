@@ -11,10 +11,10 @@ import { TaskContextValue } from '@/app/_contexts/task/types';
 import { useStatusMutations } from '@/app/_hooks/mutations/statuses/useStatusMutations';
 import { DropResult } from 'react-beautiful-dnd';
 import { useStatusQueries } from '@/app/_hooks/queries/status/useStatusQueries';
-import { Status } from '@/app/_models/Status';
+import { Status } from '@/app/_types/Status';
 import { arrayMoveImmutable } from 'array-move';
 import { hasNotMoved } from '@/app/_utils/drag-and-drop';
-import { Task } from '@/app/_models/Task';
+import { Task } from '@/app/_types/Task';
 import { TaskModalsProvider } from '@/app/_contexts/task/modals';
 
 const TaskContext = createContext<TaskContextValue>({} as TaskContextValue);
@@ -150,6 +150,17 @@ export const TaskProvider = ({ children }: { children: ReactNode }) => {
         });
     };
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const handleAddTaskToStatus = (statusId: string, task: Task) => {
+        setStatuses((prevState) => {
+            if (prevState === undefined) return [];
+
+            const newStatuses = [...prevState];
+
+            return [...newStatuses];
+        });
+    };
+
     useEffect(() => {
         setStatuses(statusesResponse?.data);
     }, [statusesResponse]);
@@ -161,6 +172,7 @@ export const TaskProvider = ({ children }: { children: ReactNode }) => {
                 statuses,
                 isFetchingStatuses,
                 isMovingTask,
+                handleAddTaskToStatus,
             }}
         >
             <TaskModalsProvider>{children}</TaskModalsProvider>

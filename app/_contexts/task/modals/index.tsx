@@ -1,30 +1,47 @@
 'use client';
 
-import React, {
-    createContext,
-    Dispatch,
-    ReactNode,
-    SetStateAction,
-    useContext,
-    useState,
-} from 'react';
+import React, { createContext, ReactNode, useContext, useState } from 'react';
 import { Modal } from '@/app/_components/shared/modal';
+import { CreateTaskModalContent } from '@/app/_components/modals/tasks/create';
 
 interface Value {
     isCreateModalOpen: boolean;
-    setIsCreateModalOpen: Dispatch<SetStateAction<boolean>>;
+    closeCreateModal: () => void;
+    openCreateModal: (data: CreateTaskModalMetadata) => void;
+    createTaskMetadata: CreateTaskModalMetadata | undefined;
+}
+
+interface CreateTaskModalMetadata {
+    statusId: string;
 }
 
 const TaskModalsContext = createContext<Value>({} as Value);
 
 export const TaskModalsProvider = ({ children }: { children: ReactNode }) => {
-    const [isCreateModalOpen, setIsCreateModalOpen] = useState<boolean>(true);
+    const [isCreateModalOpen, setIsCreateModalOpen] = useState<boolean>(false);
+    const [createTaskMetadata, setCreateTaskMetadata] = useState<
+        CreateTaskModalMetadata | undefined
+    >();
+
+    const openCreateModal = (data: CreateTaskModalMetadata) => {
+        setIsCreateModalOpen(true);
+
+        setCreateTaskMetadata(data);
+    };
+
+    const closeCreateModal = () => {
+        setIsCreateModalOpen(false);
+
+        setCreateTaskMetadata(undefined);
+    };
 
     return (
         <TaskModalsContext.Provider
             value={{
                 isCreateModalOpen,
-                setIsCreateModalOpen,
+                closeCreateModal,
+                openCreateModal,
+                createTaskMetadata,
             }}
         >
             {children}
@@ -32,11 +49,9 @@ export const TaskModalsProvider = ({ children }: { children: ReactNode }) => {
             <Modal
                 isOpen={isCreateModalOpen}
                 setIsOpen={setIsCreateModalOpen}
-                title="Criar Tarefa"
+                title="Nova Tarefa"
             >
-                <div className="p-3">
-                    <p>o modal está aqui</p>
-                </div>
+                <CreateTaskModalContent />
             </Modal>
         </TaskModalsContext.Provider>
     );

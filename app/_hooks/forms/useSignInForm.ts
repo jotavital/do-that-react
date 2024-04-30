@@ -1,4 +1,4 @@
-import { useAuthContext } from '../../../../_contexts/auth';
+import { useAuthContext } from '../../_contexts/auth';
 import { AuthenticationService } from '@/app/_services/AuthenticationService';
 import { SignInProps, SignInSchema } from '@/app/_types/Authentication';
 import { FormStep, SignInFormSteps } from '@/app/_types/Form';

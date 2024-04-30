@@ -1,5 +1,5 @@
 import zod from '@/app/_lib/zod';
-import { User, UserTokens } from '@/app/_models/User';
+import { User, UserTokens } from '@/app/_types/User';
 
 export interface SendAuthenticationCodeResponse {
     success: boolean;

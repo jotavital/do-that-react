@@ -1,9 +1,13 @@
 import { PulseLoader } from 'react-spinners';
 
-export const Loading: React.FC = () => {
+interface Props {
+    color?: string;
+}
+
+export const Loading: React.FC<Props> = ({ color = '#023e8a' }: Props) => {
     return (
         <PulseLoader
-            color="#023e8a"
+            color={color}
             cssOverride={{
                 margin: '0 auto',
             }}

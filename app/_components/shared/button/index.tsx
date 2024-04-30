@@ -29,7 +29,7 @@ export const Button: React.FC<ButtonProps> = ({
             {...rest}
         >
             {isLoading ? (
-                <Loading />
+                <Loading color={'white'} />
             ) : (
                 <>
                     {leftIcon} {title} {icon}

@@ -19,7 +19,7 @@ export const StatusHeader: React.FC<StatusProps> = ({
         blue: 'text-blue-500',
     };
 
-    const { setIsCreateModalOpen } = useTaskModalsContext();
+    const { openCreateModal } = useTaskModalsContext();
 
     return (
         <>
@@ -35,7 +35,7 @@ export const StatusHeader: React.FC<StatusProps> = ({
 
                 <IconButton
                     icon={<IoMdAdd className="text-xl" />}
-                    callback={() => setIsCreateModalOpen(true)}
+                    callback={() => openCreateModal({ statusId: status._id })}
                 />
             </div>
         </>

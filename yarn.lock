@@ -1218,6 +1218,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"colord@npm:^2.9.3":
+  version: 2.9.3
+  resolution: "colord@npm:2.9.3"
+  checksum: 10c0/9699e956894d8996b28c686afe8988720785f476f59335c80ce852ded76ab3ebe252703aec53d9bef54f6219aea6b960fb3d9a8300058a1d0c0d4026460cd110
+  languageName: node
+  linkType: hard
+
 "colorette@npm:^2.0.20":
   version: 2.0.20
   resolution: "colorette@npm:2.0.20"
@@ -1467,6 +1474,7 @@ __metadata:
     array-move: "npm:^4.0.0"
     autoprefixer: "npm:^10.0.1"
     axios: "npm:^1.6.8"
+    colord: "npm:^2.9.3"
     cookies-next: "npm:^4.1.1"
     eslint: "npm:^8.57.0"
     eslint-config-next: "npm:14.1.4"

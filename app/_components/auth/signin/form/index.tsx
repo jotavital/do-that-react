@@ -1,7 +1,7 @@
 'use client';
 
 import { SignInFormHeader } from '@/app/_components/auth/signin/form/header';
-import { useSignInForm } from '@/app/_components/auth/signin/hooks/useSignInForm';
+import { useSignInForm } from '@/app/_hooks/forms/useSignInForm';
 import { Button } from '@/app/_components/shared/button';
 import { Input } from '@/app/_components/shared/input';
 import { SignInFormSteps } from '@/app/_types/Form';

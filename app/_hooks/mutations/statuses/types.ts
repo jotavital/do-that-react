@@ -1,4 +1,4 @@
-import { Task } from '@/app/_models/Task';
+import { Task } from '@/app/_types/Task';
 
 export interface MoveTaskMutationProps {
     tasks: Task[];

@@ -2,7 +2,7 @@ import { TaskItem } from '@/app/_components/boards/statuses/status/tasks/task-it
 import React from 'react';
 import { Loading } from '@/app/_components/shared/loading';
 import { useTaskContext } from '@/app/_contexts/task';
-import { Task } from '@/app/_models/Task';
+import { Task } from '@/app/_types/Task';
 
 interface Props {
     tasks: Task[];

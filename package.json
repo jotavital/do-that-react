@@ -14,6 +14,7 @@
 		"@tanstack/react-query": "^5.29.2",
 		"array-move": "^4.0.0",
 		"axios": "^1.6.8",
+		"colord": "^2.9.3",
 		"cookies-next": "^4.1.1",
 		"next": "14.1.4",
 		"react": "^18",

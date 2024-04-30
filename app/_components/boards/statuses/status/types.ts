@@ -1,4 +1,4 @@
-import { Status } from '@/app/_models/Status';
+import { Status } from '@/app/_types/Status';
 
 export type StatusColor = 'red' | 'green' | 'blue';
 

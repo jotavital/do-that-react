@@ -1,5 +1,5 @@
 import { StatusColor } from '@/app/_components/boards/statuses/status/types';
-import { Task } from '@/app/_models/Task';
+import { Task } from '@/app/_types/Task';
 
 export interface Status {
     _id: string;
