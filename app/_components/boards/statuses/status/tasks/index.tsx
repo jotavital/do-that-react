@@ -15,13 +15,17 @@ export const Tasks: React.FC<Props> = ({ tasks }: Props) => {
         <div className="h-[90%] p-3 flex flex-col gap-2 overflow-y-auto">
             {isMovingTask && <Loading />}
 
-            {tasks.map((task: Task, index: number) => (
-                <TaskItem
-                    key={`draggable-task-${task._id}`}
-                    task={task}
-                    index={index}
-                />
-            ))}
+            {tasks.map((task: Task, index: number) => {
+                if (task) {
+                    return (
+                        <TaskItem
+                            key={`draggable-task-${task._id}`}
+                            task={task}
+                            index={index}
+                        />
+                    );
+                }
+            })}
         </div>
     );
 };

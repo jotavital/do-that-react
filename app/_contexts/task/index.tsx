@@ -127,7 +127,7 @@ export const TaskProvider = ({ children }: { children: ReactNode }) => {
         sourceStatusIndex: number,
         destinationStatusIndex: number,
     ) => {
-        await Promise.allSettled([
+        await Promise.all([
             rearrangeTasksMutation.mutateAsync({
                 statusId: sourceStatusId,
                 tasks: newSourceTasks,
@@ -155,9 +155,16 @@ export const TaskProvider = ({ children }: { children: ReactNode }) => {
         setStatuses((prevState) => {
             if (prevState === undefined) return [];
 
-            const newStatuses = [...prevState];
+            return prevState.map((status) => {
+                if (status._id === statusId) {
+                    return {
+                        ...status,
+                        tasks: [...status.tasks, task],
+                    };
+                }
 
-            return [...newStatuses];
+                return status;
+            });
         });
     };
 
