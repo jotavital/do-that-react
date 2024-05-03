@@ -25,9 +25,9 @@ export const useButtonClassnames = ({
     const unstyledButtonClassnames = 'flex items-center justify-center gap-2';
 
     const colorClassnames = {
-        primary: `bg-primary shadow-primary/20 hover:shadow-primary/40 border-primary ${isOutline && 'text-primary'}`,
-        green: `bg-green-500 shadow-green-500/20 hover:shadow-green-500/40 border-green-500 ${isOutline && 'text-green-500'}`,
-        red: `bg-red-500 shadow-red-500/20 hover:shadow-red-500/40 border-red-500 ${isOutline && 'text-red-500'}`,
+        primary: `!bg-primary shadow-primary/20 hover:shadow-primary/40 border-primary ${isOutline && 'text-primary'}`,
+        green: `!bg-green-500 shadow-green-500/20 hover:shadow-green-500/40 border-green-500 ${isOutline && 'text-green-500'}`,
+        red: `!bg-red-500 shadow-red-500/20 hover:shadow-red-500/40 border-red-500 ${isOutline && 'text-red-500'}`,
         none: '',
     };
 

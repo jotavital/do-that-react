@@ -1,6 +1,7 @@
 import React from 'react';
 import { Task } from '@/app/_types/Task';
 import { Draggable } from 'react-beautiful-dnd';
+import { TaskActions } from '@/app/_components/boards/statuses/status/tasks/task-item/actions';
 
 interface Props {
     task: Task;
@@ -15,9 +16,13 @@ export const TaskItem: React.FC<Props> = ({ task, index }: Props) => {
                     ref={provided.innerRef}
                     {...provided.draggableProps}
                     {...provided.dragHandleProps}
-                    className="bg-white min-h-20 rounded-md shadow-sm p-2"
+                    className="group bg-white min-h-20 rounded-md shadow-sm p-2 flex cursor-grab"
                 >
-                    <p>{task.name}</p>
+                    <div className={'w-10/12'}>
+                        <p>{task.name}</p>
+                    </div>
+
+                    <TaskActions taskId={task._id} />
                 </div>
             )}
         </Draggable>
