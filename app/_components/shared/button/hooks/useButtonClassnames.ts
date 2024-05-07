@@ -32,7 +32,7 @@ export const useButtonClassnames = ({
     };
 
     const variantClassnames = {
-        outline: `bg-transparent border-2 font-semibold shadow-none`,
+        outline: `!bg-transparent border-2 font-semibold shadow-none`,
     };
 
     let buttonClassname = twMerge(

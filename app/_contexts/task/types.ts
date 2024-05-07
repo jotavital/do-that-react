@@ -8,4 +8,5 @@ export interface TaskContextValue {
     statuses?: Status[];
     isMovingTask: boolean;
     handleAddTaskToStatus: (statusId: string, task: Task) => void;
+    handleRemoveTaskFromStatus: (statusId: string, taskId: string) => void;
 }

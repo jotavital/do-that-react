@@ -20,7 +20,7 @@ export const Status: React.FC<StatusProps> = ({ status }: StatusProps) => {
                 >
                     <StatusHeader status={status} />
 
-                    <Tasks tasks={status.tasks} />
+                    <Tasks tasks={status.tasks} statusId={status._id} />
 
                     {provided.placeholder}
                 </div>

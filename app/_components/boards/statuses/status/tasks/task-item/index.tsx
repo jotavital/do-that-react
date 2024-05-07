@@ -6,9 +6,10 @@ import { TaskActions } from '@/app/_components/boards/statuses/status/tasks/task
 interface Props {
     task: Task;
     index: number;
+    statusId: string;
 }
 
-export const TaskItem: React.FC<Props> = ({ task, index }: Props) => {
+export const TaskItem: React.FC<Props> = ({ task, index, statusId }: Props) => {
     return (
         <Draggable draggableId={`draggable-task-${task._id}`} index={index}>
             {(provided) => (
@@ -22,7 +23,7 @@ export const TaskItem: React.FC<Props> = ({ task, index }: Props) => {
                         <p>{task.name}</p>
                     </div>
 
-                    <TaskActions taskId={task._id} />
+                    <TaskActions taskId={task._id} statusId={statusId} />
                 </div>
             )}
         </Draggable>

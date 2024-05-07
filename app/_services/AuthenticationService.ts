@@ -1,6 +1,6 @@
 'use client';
 
-import { api } from '@/app/_lib/axios';
+import { api, publicApi } from '@/app/_lib/axios';
 import {
     SendAuthenticationCodeResponse,
     SignInProps,
@@ -18,11 +18,15 @@ export class AuthenticationService {
 
         if (typeof window !== 'undefined') {
             window.location.href = 'signin';
+
+            localStorage.removeItem(
+                process.env.NEXT_PUBLIC_USER_KEY ?? 'dothat@user',
+            );
         }
     };
 
     static signIn = async (data: SignInProps) => {
-        const { data: response } = await api
+        const { data: response } = await publicApi
             .post<SignInResponse>(`login`, {
                 email: data.email,
                 authentication_code: data.authentication_code,
@@ -52,7 +56,7 @@ export class AuthenticationService {
                 return false;
             }
 
-            return await api
+            return await publicApi
                 .get<SendAuthenticationCodeResponse>(
                     `send-authentication-code?email=${email}`,
                 )

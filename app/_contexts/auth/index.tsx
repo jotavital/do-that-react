@@ -2,7 +2,6 @@
 
 import { AuthContextValue } from '@/app/_contexts/auth/types';
 import { User } from '@/app/_types/User';
-import { AuthenticationService } from '@/app/_services/AuthenticationService';
 import { createContext, ReactNode, useContext, useState } from 'react';
 
 const AuthContext = createContext<AuthContextValue>({} as AuthContextValue);
@@ -17,10 +16,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
             ),
         ) as User,
     );
-
-    if (!user) {
-        AuthenticationService.signOut();
-    }
 
     return (
         <AuthContext.Provider value={{ user, setUser }}>

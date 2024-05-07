@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { api } from '@/app/_lib/axios';
 import { Status } from '@/app/_types/Status';
-import { useAuthContext } from '../../../_contexts/auth';
+import { useAuthContext } from '@/app/_contexts/auth';
 
 export const useStatusQueries = () => {
     const { user } = useAuthContext();

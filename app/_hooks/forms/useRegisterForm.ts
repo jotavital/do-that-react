@@ -1,4 +1,4 @@
-import { api } from '@/app/_lib/axios';
+import { publicApi } from '@/app/_lib/axios';
 import { RegisterProps, RegisterSchema } from '@/app/_types/Register';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
@@ -15,7 +15,7 @@ export const useRegisterForm = () => {
     } = useForm<RegisterProps>({ resolver: zodResolver(RegisterSchema) });
 
     const handleRegister = (data: RegisterProps) => {
-        void api.post('register', data).then(() => {
+        void publicApi.post('register', data).then(() => {
             toast.success('Cadastro realizado com sucesso.');
 
             router.push('signin');

@@ -5,9 +5,10 @@ import { useDeleteTask } from '@/app/_hooks/tasks/useDeleteTask';
 
 interface Props {
     taskId: string;
+    statusId: string;
 }
 
-export const TaskActions: React.FC<Props> = ({ taskId }: Props) => {
+export const TaskActions: React.FC<Props> = ({ taskId, statusId }: Props) => {
     const { handleDeleteTask } = useDeleteTask();
 
     return (
@@ -19,7 +20,7 @@ export const TaskActions: React.FC<Props> = ({ taskId }: Props) => {
             <IconButton
                 icon={<FaRegTrashCan />}
                 className="p-2"
-                callback={() => handleDeleteTask(taskId)}
+                callback={() => handleDeleteTask(taskId, statusId)}
             />
         </div>
     );

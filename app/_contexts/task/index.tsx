@@ -150,7 +150,6 @@ export const TaskProvider = ({ children }: { children: ReactNode }) => {
         });
     };
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const handleAddTaskToStatus = (statusId: string, task: Task) => {
         setStatuses((prevState) => {
             if (prevState === undefined) return [];
@@ -168,6 +167,35 @@ export const TaskProvider = ({ children }: { children: ReactNode }) => {
         });
     };
 
+    const handleRemoveTaskFromStatus = (statusId: string, taskId: string) => {
+        const status = statuses?.find((status) => status._id === statusId);
+        const newTasks = status
+            ? status.tasks.filter((task) => task._id !== taskId)
+            : [];
+
+        void rearrangeTasksMutation
+            .mutateAsync({
+                statusId,
+                tasks: newTasks,
+            })
+            .then(() => {
+                setStatuses((prevState) => {
+                    if (prevState === undefined) return [];
+
+                    return prevState.map((status) => {
+                        if (status._id === statusId) {
+                            return {
+                                ...status,
+                                tasks: newTasks,
+                            };
+                        }
+
+                        return status;
+                    });
+                });
+            });
+    };
+
     useEffect(() => {
         setStatuses(statusesResponse?.data);
     }, [statusesResponse]);
@@ -180,6 +208,7 @@ export const TaskProvider = ({ children }: { children: ReactNode }) => {
                 isFetchingStatuses,
                 isMovingTask,
                 handleAddTaskToStatus,
+                handleRemoveTaskFromStatus,
             }}
         >
             <TaskModalsProvider>{children}</TaskModalsProvider>

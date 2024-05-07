@@ -6,9 +6,10 @@ import { Task } from '@/app/_types/Task';
 
 interface Props {
     tasks: Task[];
+    statusId: string;
 }
 
-export const Tasks: React.FC<Props> = ({ tasks }: Props) => {
+export const Tasks: React.FC<Props> = ({ tasks, statusId }: Props) => {
     const { isMovingTask } = useTaskContext();
 
     return (
@@ -21,6 +22,7 @@ export const Tasks: React.FC<Props> = ({ tasks }: Props) => {
                         <TaskItem
                             key={`draggable-task-${task._id}`}
                             task={task}
+                            statusId={statusId}
                             index={index}
                         />
                     );
